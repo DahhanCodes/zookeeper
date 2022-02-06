@@ -36,6 +36,16 @@ function filterByQuery(query, animalsArray){
     }
     return filteredResults
 }
+//createing a function that will pass in the id and the animalsArray
+//and will return a single animal upon request
+function findById (id, animalsArray){
+    //this will return an array that has a single item
+    //that is why we are calling the zero index
+    //animal here is just a placeholder like 'i' in for loops
+    const result = animals.filter(animal => animal.id === id)[0]
+}
+
+
 //get requires a string that describes the route the client will have to fetch from 
 //second get argument is a call back function that will execute every time that route is accessed with a get request
 app.get('/api/animals', (req,res) => {
@@ -44,6 +54,15 @@ app.get('/api/animals', (req,res) => {
     if (req.query){
         results = filterByQuery(req.query, results)
     }
+    res.json(results)
+
+})
+//using req.params we need a route
+//param routes must come AFTER the other GET route
+//fliterByQuery can be used but this method is more accurate
+app.get('/api/animals:id', (req,res) => {
+    const results = findById(req.params.id,animals)
+    
     res.json(results)
 
 })
