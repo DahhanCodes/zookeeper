@@ -28,9 +28,11 @@ function filterByQuery(query, animalsArray){
     if (query.diet){
         filteredResults= filteredResults.filter(animal => animal.diet === query.diet)
     }
+//by species
     if (query.species){
         filteredResults= filteredResults.filter(animal => animal.species === query.species)
     }
+//by name
     if (query.name){
         filteredResults = filteredResults.filter(animal => animal.name === query.name)
     }
