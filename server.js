@@ -62,8 +62,11 @@ app.get('/api/animals', (req,res) => {
 //fliterByQuery can be used but this method is more accurate
 app.get('/api/animals:id', (req,res) => {
     const results = findById(req.params.id,animals)
-    
+    if (result){
     res.json(results)
+    }else{
+        res.send(404);
+    }
 
 })
 app.listen(PORT,() =>{
