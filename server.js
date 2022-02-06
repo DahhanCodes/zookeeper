@@ -1,4 +1,6 @@
 const express = require ('express');
+const res = require('express/lib/response');
+const {animals}= require('./data/animals.json')
 const PORT = process.env.PORT || 3001;
 const app = express();
 function filterByQuery(query, animalsArray){
@@ -38,6 +40,7 @@ function filterByQuery(query, animalsArray){
     }
     return filteredResults
 }
+
 //createing a function that will pass in the id and the animalsArray
 //and will return a single animal upon request
 function findById (id, animalsArray){
@@ -45,6 +48,7 @@ function findById (id, animalsArray){
     //that is why we are calling the zero index
     //animal here is just a placeholder like 'i' in for loops
     const result = animals.filter(animal => animal.id === id)[0]
+    return result;
 }
 
 
@@ -62,9 +66,9 @@ app.get('/api/animals', (req,res) => {
 //using req.params we need a route
 //param routes must come AFTER the other GET route
 //fliterByQuery can be used but this method is more accurate
-app.get('/api/animals:id', (req,res) => {
-    const results = findById(req.params.id,animals)
-    if (result){
+app.get('/api/animals/:id', (req,res) => {
+    const results = findById(req.params.id, animals)
+    if (results){
     res.json(results)
     }else{
         res.send(404);
@@ -75,4 +79,3 @@ app.get('/api/animals:id', (req,res) => {
 app.listen(PORT,() =>{
     console.log(`API server now on port ${PORT}!`)
 })
-const {animals}= require('./data/animals.json')
